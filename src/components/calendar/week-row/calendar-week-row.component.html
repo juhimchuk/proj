@@ -1,3 +1,2 @@
-<div class="row col-sm-12">
-    <calendar-day *ngFor="let day of weekModel.dates" class="col-sm-1" [calendarDate]="day"></calendar-day>
-</div>
+<calendar-day *ngFor="let day of weekModel.dates" [ngClass]="getDayClasses(day)" [config]="config" [calendarDate]="day" (mousedown)="mouseDownHandler(day)" (mouseover)="mouseOverHandler(day)" (mouseup)="mouseUpHandler(day)">
+</calendar-day>

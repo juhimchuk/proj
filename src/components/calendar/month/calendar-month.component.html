@@ -1,4 +1,14 @@
-<h1>Month</h1>
-<div class="">
-    <calendar-week-row *ngFor="let week of dates" [weekModel]="week"></calendar-week-row>
+<div [ngClass]="config.month.headerClass">
+    <div [ngClass]="config.month.switchrowClass">
+        <div [ngClass]="config.month.switchClass" (click)="changeMonth(changeTypes.Previous)">-</div>
+        <div [ngClass]="config.month.switchClass" (dblclick)="changeMonth(changeTypes.Current)">0</div>
+        <div [ngClass]="config.month.switchClass" (click)="changeMonth(changeTypes.Next)">+</div>
+    </div>
+    <div [ngClass]="config.month.titleClass" (dblclick)="changeMonth(changeTypes.Current)">
+        <p>{{monthModel.name}}</p>
+    </div>
+</div>
+<div [ngClass]="config.month.bodyClass">
+    <calendar-weekdays [ngClass]="config.week.rowClass" [config]="config"></calendar-weekdays>
+    <calendar-week-row *ngFor="let week of monthModel.weeks" [ngClass]="config.week.rowClass" [config]="config" [selectMode]="selectMode" [weekModel]="week" (onSelectDay)="selectDayHandler($event)"></calendar-week-row>
 </div>
