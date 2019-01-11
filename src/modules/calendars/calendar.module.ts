@@ -19,6 +19,8 @@ import { CalendarDayReportComponent } from './calendar-day-report/calendar-day-r
         HttpClientModule, 
         NgbModule
     ],
+    exports: [
+        CalendarDayReportComponent],
     declarations: [
         CalendarDayReportComponent,
         CalendarDayComponent, 

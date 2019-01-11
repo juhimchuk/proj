@@ -10,5 +10,5 @@
 </div>
 <div [ngClass]="config.month.bodyClass">
     <calendar-weekdays [ngClass]="config.week.rowClass" [config]="config"></calendar-weekdays>
-    <calendar-week-row *ngFor="let week of monthModel.weeks" [ngClass]="config.week.rowClass" [config]="config" [selectMode]="selectMode" [weekModel]="week" (onSelectDay)="selectDayHandler($event)"></calendar-week-row>
+    <calendar-week-row *ngFor="let week of monthModel.weeks" [ngClass]="getWeekClasses(week)" [config]="config" [selectMode]="selectMode" [weekModel]="week" (onSelectDay)="selectDayHandler($event)"></calendar-week-row>
 </div>

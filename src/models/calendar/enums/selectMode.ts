@@ -1,4 +1,5 @@
 export enum SelectMode {
-    Single = 0,
+    None = -1,
+    Single,
     Multi
 }

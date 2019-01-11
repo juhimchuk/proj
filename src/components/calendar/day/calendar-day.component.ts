@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CalendarDate } from 'src/models/calendar/calendarDate';
-import { CalendarConfig } from 'src/modules/calendars/config/calendar.config';
+import { ICalendarConfig } from 'src/modules/calendars/config/ICalendar.config';
 
 @Component({
   selector: 'calendar-day',
@@ -8,7 +8,7 @@ import { CalendarConfig } from 'src/modules/calendars/config/calendar.config';
 })
 export class CalendarDayComponent {
   @Input() calendarDate: CalendarDate;
-  @Input() config: CalendarConfig;
+  @Input() config: ICalendarConfig;
 
   constructor() { }
 
