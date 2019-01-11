@@ -1,0 +1,12 @@
+
+
+<button (click) ="GetSome()"></button>
+<select  [(ngModel)]="projectId">
+    <option *ngFor="let s of some"
+            [value]="s.projectId"
+           >
+      {{s.name}}
+    </option>
+  </select>
+
+  <tasks [projectId]="projectId"></tasks>

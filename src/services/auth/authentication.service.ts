@@ -4,20 +4,18 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
+
+    private readonly url = "http://localhost:63553/Token";
+
+
     constructor(private http: HttpClient) { }
 
     login(username: string, password: string) {
     let model = "username=" + username + "&password=" + password + "&grant_type=" + "password";
 
-        return this.http.post<any>(`http://localhost:63553/Token`, model)
+        return this.http.post<any>(this.url, model)
             .pipe(map(user => {
-                console.log(user.access_token);
-                var s = JSON.stringify(user);
-                console.log(user);
-                console.log(s);
-                // login successful if there's a jwt token in the response
                 if (user.access_token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', user.access_token);
                 }
 
