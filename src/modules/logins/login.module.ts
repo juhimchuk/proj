@@ -23,6 +23,8 @@ import { LoginComponent } from 'src/components/login/login.component';
         RouterModule,
         AppRoutingModule
     ],
+    exports: [
+        LoginComponent],
     declarations: [
         LoginComponent 
     ],

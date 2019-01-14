@@ -1,2 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<calendar-day-report [config]="calendarConfig" [model]="calendarModel" (onChangeMonth)="monthChangeHandler($event)" (onSelectDays)="daysSelectHandler($event)" (onSelectDay)="daySelectHandler($event)"></calendar-day-report>
+<!-- <calendar-day-report [config]="calendarConfig" [model]="calendarModel" (onChangeMonth)="monthChangeHandler($event)" (onSelectDays)="daysSelectHandler($event)" (onSelectDay)="daySelectHandler($event)"></calendar-day-report> -->
+
+<nav>
+    <a routerLink="/login">Login</a>
+  </nav>
+
+<router-outlet></router-outlet>

@@ -1,11 +1,11 @@
 import { ProjectTask } from './projectTask';
 
 export class DayReportProjectTask {
-    projectTasks: ProjectTask[];
+    ProjectTasks: ProjectTask[];
     myTasks: ProjectTask[];
   
     constructor(projectTasks?: ProjectTask[], myTasks?: ProjectTask[]) {
-      this.projectTasks = projectTasks;
+      this.ProjectTasks = projectTasks;
       this.myTasks = myTasks;
     }
   }

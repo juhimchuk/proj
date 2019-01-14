@@ -20,10 +20,7 @@ export class TaskService {
 
         return this.http.get<any>(this.url+projectId).pipe(map(task => {
             var tasks:DayReportProjectTask = new DayReportProjectTask();
-            console.log(task);
             tasks = task.data;
-            console.log("task");
-            console.log(tasks);
             return tasks;
         }));
     }
