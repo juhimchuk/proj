@@ -1,0 +1,38 @@
+<div [ngSwitch]="model.config.calendar.calendarType">
+    <div *ngSwitchDefault>
+        <calendar-header [config]="model.config" (onClick)="clickCalendarChangeHandler($event)">
+            <p>{{model.data.name}}</p>
+        </calendar-header>
+        <div [ngClass]="model.config.calendar.bodyClass">
+            <calendar-month [monthModel]="model.data" [config]="model.config" [selectMode]="selectMode" (onChangeMonth)="changeMonthHandler($event)" (onSelectDay)="selectDaysHandler($event)">
+                <calendar-weekdays [ngClass]="model.config.week.nameRowClass" [config]="model.config"></calendar-weekdays>
+            </calendar-month>
+        </div>
+    </div>
+
+    <div *ngSwitchCase="_calendarTypes.Week">
+        <calendar-header [config]="model.config" (onClick)="clickCalendarChangeHandler($event)">
+            <p>Week {{model.data.index}}</p>
+        </calendar-header>
+        <div [ngClass]="model.config.calendar.bodyClass">
+            <calendar-weekdays [ngClass]="model.config.week.nameRowClass" [config]="model.config"></calendar-weekdays>
+            <calendar-week-row [ngClass]="model.data.getClasses(model.config)" [weekModel]="model.data" [config]="model.config" [selectMode]="selectMode" (onSelectDay)="selectDaysHandler($event)"></calendar-week-row>
+        </div>
+    </div>
+
+    <div *ngSwitchCase="_calendarTypes.Year">
+        <calendar-header [config]="model.config" (onClick)="clickCalendarChangeHandler($event)">
+            <p>Year {{model.index}}</p>
+        </calendar-header>
+        <div [ngClass]="model.config.calendar.bodyClass">
+            <div *ngFor="let month of model.data.months">
+                <div>{{month.name}}</div>
+                <calendar-month [monthModel]="month" [config]="model.config" [selectMode]="selectMode" (onChangeMonth)="changeMonthHandler($event)" (onSelectDay)="selectDaysHandler($event)">
+                    <calendar-weekdays [ngClass]="model.config.week.nameRowClass" [config]="model.config"></calendar-weekdays>
+                </calendar-month>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div *ngSwitchCase="_calendarTypes.Month"></div> -->
+</div>

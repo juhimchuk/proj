@@ -2,45 +2,50 @@ import { Component, Output, EventEmitter, HostListener, Input } from '@angular/c
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { CalendarMonth } from 'src/models/calendar/calendarMonth';
-import { ChangeMonthEvent } from 'src/models/calendar/enums/changeMonthEvent';
+import { SwitchTypeEvent } from 'src/models/calendar/enums/switchTypeEvent';
 import { CalendarDate } from 'src/models/calendar/calendarDate';
 import { EventEmitterModel } from 'src/models/calendar/eventEmitterModel';
 import { SelectDayEvent } from 'src/models/calendar/enums/selectDayEvent';
 import { SelectMode } from 'src/models/calendar/enums/selectMode';
-import { ICalendarConfig } from '../config/ICalendar.config';
+import { CalendarType } from 'src/models/calendar/enums/calendarType';
+import { CalendarModel } from 'src/models/calendar/calendarModel';
+import { CalendarWeek } from 'src/models/calendar/calendarWeek';
+import { CalendarYear } from 'src/models/calendar/calendarYear';
 
 @Component({
-  selector: 'calendar-day-report',
-  templateUrl: './calendar-day-report.component.html',
-  styleUrls: ['./calendar-day-report.component.less']
+  selector: 'calendar',
+  templateUrl: './calendar-manager.component.html',
+  styleUrls: ['./calendar-manager.component.less']
 })
 
-export class CalendarDayReportComponent {
-  @Input() config: ICalendarConfig;
-  @Input() model: CalendarMonth;
+export class CalendarManagerComponent {
+  private readonly _calendarTypes = CalendarType;
+
+  @Input() model: CalendarModel;
 
   @Output() onSelectDays: EventEmitter<moment.Moment[]> = new EventEmitter();
   @Output() onSelectDay: EventEmitter<moment.Moment> = new EventEmitter();
-  @Output() onChangeMonth: EventEmitter<moment.Moment> = new EventEmitter();
+  @Output() onChangeCalendar: EventEmitter<moment.Moment> = new EventEmitter();
 
-  selectMode: boolean;
+  private selectMode: boolean;
 
-  changeMonthHandler(changeType: ChangeMonthEvent) {
-    if (this.config.calendar.SelectMode != SelectMode.None && this.selectMode) {
+  clickCalendarChangeHandler(changeType: SwitchTypeEvent) {
+    if (this.model.config.calendar.selectMode != SelectMode.None && this.selectMode) {
       this.finishDragSelect();
     }
     switch (changeType) {
-      case ChangeMonthEvent.Current: {
-        this.model.currentMoment = this.config.momentSettings;
+      case SwitchTypeEvent.Center: {
+        this.model.currentMoment = this.model.config.momentSettings;
         break;
       }
-      case ChangeMonthEvent.Next:
-      case ChangeMonthEvent.Previous: {
-        this.model.currentMoment = moment(this.model.currentMoment).add(changeType, 'months');
+      case SwitchTypeEvent.Next:
+      case SwitchTypeEvent.Previous: {
+
+        this.model.currentMoment = moment(this.model.currentMoment).add(changeType, this.model.config.calendar.calendarType);
         break;
       }
     }
-    this.onChangeMonth.emit(this.model.currentMoment);
+    this.onChangeCalendar.emit(this.model.currentMoment);
   }
 
   selectDaysHandler(event: EventEmitterModel<CalendarDate>) {
@@ -62,16 +67,16 @@ export class CalendarDayReportComponent {
 
   @HostListener('document:mouseup', ['$event']) private mouseUpHandler() {
     if (this.selectMode) {
-        this.finishDragSelect();
+      this.finishDragSelect();
     }
   }
 
-  
+
 
   //#region Select region.
   private initDragSelect(day: CalendarDate): void {
     this.model.clearSelectedDays();
-    if (!this.config.calendar.isSelecteble) {
+    if (!this.model.config.calendar.isSelecteble) {
       return;
     }
     day.isSelected = true;
@@ -80,7 +85,7 @@ export class CalendarDayReportComponent {
   }
 
   private dragSelect = (day: CalendarDate): void => {
-    if (this.config.calendar.SelectMode == SelectMode.Multi) {
+    if (this.model.config.calendar.selectMode == SelectMode.Multi) {
       this.model.selectedDays = this.model.clearSelectedDays(0);
       var selected = this.getSelectedDaysBetween(this.model.selectedDays, day);
       this.model.selectedDays.concat(selected)
@@ -90,16 +95,16 @@ export class CalendarDayReportComponent {
   }
 
   private finishDragSelect(day?: CalendarDate): void {
-    switch (this.config.calendar.SelectMode) {
+    switch (this.model.config.calendar.selectMode) {
       case SelectMode.Single: {
-        this.onSelectDay.emit(this.model.selectedDays.first().date);
+        this.onSelectDay.emit(_.first(this.model.selectedDays).date);
         break;
       }
       case SelectMode.Multi: {
         var selectedDates = _.map(this.model.selectedDays, (day: CalendarDate): moment.Moment => {
           return day.date;
         });
-        selectedDates = _.sortBy(selectedDates, (day) => day.format() );
+        selectedDates = _.sortBy(selectedDates, (day) => day.format());
         this.onSelectDays.emit(selectedDates);
         break;
       }
@@ -108,9 +113,9 @@ export class CalendarDayReportComponent {
   }
 
   private getSelectedDaysBetween(selectList: CalendarDate[], selectedDay: CalendarDate): CalendarDate[] {
-    const initDay = _.head(selectList);
+    const initDay = _.first(selectList);
     const daysDifference = selectedDay.date.diff(initDay.date, 'days');
-    const daysToSelect = this.getDaysToSelect(this.model, initDay, daysDifference);
+    const daysToSelect = this.getDaysToSelect(this.model.data as CalendarYear | CalendarWeek | CalendarMonth, initDay, daysDifference);
     daysToSelect.forEach((day) => {
       selectList.pushUniq(day);
       day.isSelected = true;
@@ -118,19 +123,32 @@ export class CalendarDayReportComponent {
     return daysToSelect;
   }
 
-  private getDaysToSelect(model: CalendarMonth, startDay: CalendarDate, daysDifference: number, resultArray: CalendarDate[] = []): CalendarDate[] {
+  private getDaysToSelect(model: CalendarYear | CalendarMonth | CalendarWeek, startDay: CalendarDate, daysDifference: number, resultArray: CalendarDate[] = []): CalendarDate[] {
     if (Math.abs(daysDifference) == 0) {
       return resultArray;
     }
     const MathAct = daysDifference > 0 ? 1 : -1;
     const nearDayDate = moment(startDay.date).add(MathAct, 'day');
-    const focusWeek = model.weeks.find((week) => week.index == nearDayDate.week());
+    const focusMonth = model instanceof CalendarMonth
+      ? model as CalendarMonth
+      : this.getMonthToSelect(model as CalendarYear, nearDayDate);
+    const focusWeek = model instanceof CalendarWeek
+      ? model as CalendarWeek 
+      : this.getWeekToSelect(focusMonth, nearDayDate);
     const nearDay = focusWeek.dates.find((day) => day.date.isSame(nearDayDate));
-    if (nearDay.isCurentMonth) {
+    if (nearDay.isCurent) {
       resultArray.pushUniq(nearDay);
     }
     daysDifference > 0 ? daysDifference-- : daysDifference++;
     return this.getDaysToSelect(model, nearDay, daysDifference, resultArray);
+  }
+
+  private getWeekToSelect(model: CalendarMonth, nearDayDate: moment.Moment): CalendarWeek {
+    return model.weeks.find((week) => week.index == nearDayDate.week());
+  }
+
+  private getMonthToSelect(model: CalendarYear, nearDayDate: moment.Moment): CalendarMonth {
+    return model.months.find((month) => month.index == nearDayDate.month());
   }
   //#endregion
 }

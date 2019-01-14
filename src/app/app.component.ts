@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import * as moment from 'moment';
 import { DefaultCalendarConfig } from 'src/modules/calendars/config/defaultCalendar.config';
 import { CalendarMonth } from 'src/models/calendar/calendarMonth';
+import { SelectMode } from 'src/models/calendar/enums/selectMode';
+import { CalendarModel } from 'src/models/calendar/calendarModel';
+import { CalendarType } from 'src/models/calendar/enums/calendarType';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +15,16 @@ export class AppComponent {
   title = 'TimeTrackerAngularRedux';
 
   calendarConfig = new DefaultCalendarConfig();
-  calendarModel: CalendarMonth;
+  calendarModel: CalendarModel;
   private selectedDays: moment.Moment[];
 
   constructor(){
-    this.calendarModel = new CalendarMonth(this.calendarConfig);
+    this.calendarModel = new CalendarModel(this.calendarConfig);
   }
 
   monthChangeHandler(monthMoment: moment.Moment) {
-    console.log('month', monthMoment.month())
-    this.calendarModel = new CalendarMonth(this.calendarConfig, monthMoment, null, this.selectedDays);
+    console.log('year', monthMoment.year(), 'month', monthMoment.month(), 'week', monthMoment.week())
+    this.calendarModel = new CalendarModel(this.calendarConfig, monthMoment, null, this.selectedDays);
   }
 
   daySelectHandler(day: moment.Moment) {
@@ -32,5 +35,11 @@ export class AppComponent {
   daysSelectHandler(days: moment.Moment[]) {
     this.selectedDays = days;
     console.log('days', days.length);
+  }
+
+  private _calendarTypes = CalendarType;
+  test(type: CalendarType){
+    this.calendarConfig.calendar.calendarType = type;
+    this.calendarModel = new CalendarModel(this.calendarConfig);
   }
 }

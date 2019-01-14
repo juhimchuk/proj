@@ -14,7 +14,7 @@ export class CalendarDayComponent {
 
   protected getDayClasses(): string {
     const classList: string[] = [];
-    classList.push(this.calendarDate.isCurentMonth ? '' : this.config.day.irrelevantClass);
+    classList.push(this.calendarDate.isCurent ? '' : this.config.day.irrelevantClass);
     classList.push(this.calendarDate.isToday ? this.config.day.currentClass : '');
     return classList.join(' ');
   }
