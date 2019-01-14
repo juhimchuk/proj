@@ -1,0 +1,39 @@
+
+  <form [formGroup]="report" (ngSubmit)="onSubmit()">
+  <div>
+    <label>
+      Project:
+      <select  (change)="GetTasks($event.target.value)" >
+        <option *ngFor="let s of some"
+                [value]="s.projectId"
+               >
+          {{s.name}}
+        </option>
+      </select>
+    </label>
+  
+    <label>
+      Task:
+      <select formControlName="taskId">
+        <option *ngFor="let s of tasks.ProjectTasks"
+                [value]="s.TaskId">
+          {{s.Title}}
+        </option>
+      </select>
+    </label>
+    <label>
+        Duration:
+        <select formControlName="duration">
+          <option *ngFor="let t of time"
+                  [value]="t">
+            {{t}}
+          </option>
+        </select>
+      </label>
+      </div>
+      <label>
+        Description:
+        <textarea formControlName="description"></textarea>
+      </label>
+      <button type="submit" >Submit</button>
+  </form>
