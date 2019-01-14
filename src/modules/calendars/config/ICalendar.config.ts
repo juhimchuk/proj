@@ -1,6 +1,8 @@
 import * as moment from 'moment';
 import { SelectMode } from 'src/models/calendar/enums/selectMode';
 import { BlockMode } from 'src/models/calendar/enums/blockMode';
+import { CalendarType } from 'src/models/calendar/enums/calendarType';
+import { SwitchMode } from 'src/models/calendar/enums/switchMode';
 
 export interface ICalendarConfig {
     day: ICalendarDayConfig;
@@ -19,26 +21,31 @@ export interface ICalendarDayConfig {
 }
 
 export interface ICalendarMonthConfig {
-    headerClass: string;
     bodyClass: string;
-    switchrowClass: string;
-    switchClass: string;
-    titleClass: string;
 }
 
 export interface ICalendarWeekConfig {
-    nameClass: string;
+    nameRowClass: string;
+    nameCellClass: string;
     rowClass: string;
     extaRowClass: string;
 }
 
 export interface ICalendarFrameworkConfig {
+    headerClass: string;
+    headerContentClass: string;
     bodyClass: string;
     hideClass: string;
+    switchClass: string;
+
     isHideExtaDates: boolean;
     isHideWeekend: boolean;
-    SelectMode: SelectMode;
-    BlockMode: BlockMode;
     isBlockFutureDays: boolean;
     isSelecteble: boolean;
+
+    switchMode: SwitchMode;
+    selectMode: SelectMode;
+    blockMode: BlockMode;
+
+    calendarType: CalendarType;
 }

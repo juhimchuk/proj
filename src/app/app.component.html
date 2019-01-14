@@ -6,3 +6,9 @@
   </nav>
 
 <router-outlet></router-outlet>
+<calendar [model]="calendarModel" (onChangeCalendar)="monthChangeHandler($event)" (onSelectDays)="daysSelectHandler($event)" (onSelectDay)="daySelectHandler($event)">
+</calendar>
+
+<button (click)="test(_calendarTypes.Week)">Week</button>
+<button (click)="test(_calendarTypes.Month)">Month</button>
+<button (click)="test(_calendarTypes.Year)">Year</button>

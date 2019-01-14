@@ -1,0 +1,5 @@
+<div *ngIf="this.config.calendar.switchMode != _switchModes.None" [ngClass]="config.calendar.switchClass" (click)="clickHandler(_switchTypes.Previous)">-</div>
+<div [ngClass]="config.calendar.headerContentClass" (click)="clickHandler(_switchTypes.Center)">
+    <ng-content></ng-content>
+</div>
+<div *ngIf="this.config.calendar.switchMode != _switchModes.None" [ngClass]="config.calendar.switchClass" (click)="clickHandler(_switchTypes.Next)">+</div>
