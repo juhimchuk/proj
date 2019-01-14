@@ -16,7 +16,8 @@ export class CalendarWeekDayNamesComponent {
     }
 
     private getClasses(index: number): string {
-        const result: string[] = [this.config.week.nameClass];
+        const result: string[] = [this.config.week.nameCellClass];
+        result.push(this.config.day.disableClass);
         const isWeekend = index > 4;
         result.push(this.config.calendar.isHideWeekend && isWeekend ? this.config.calendar.hideClass : '');
         return result.join(' ');

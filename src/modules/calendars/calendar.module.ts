@@ -8,7 +8,8 @@ import { CalendarDayComponent } from 'src/components/calendar/day/calendar-day.c
 import { CalendarMonthComponent } from 'src/components/calendar/month/calendar-month.component';
 import { CalendarWeekRowComponent } from 'src/components/calendar/week-row/calendar-week-row.component';
 import { CalendarWeekDayNamesComponent } from 'src/components/calendar/weekday-names/calendar-weekday-names.component';
-import { CalendarDayReportComponent } from './calendar-day-report/calendar-day-report.component';
+import { CalendarManagerComponent } from './calendar-manager/calendar-manager.component';
+import { CalendarHeaderComponent } from 'src/components/calendar/header/calendar-header.component';
 
 
 @NgModule({
@@ -20,16 +21,17 @@ import { CalendarDayReportComponent } from './calendar-day-report/calendar-day-r
         NgbModule
     ],
     exports: [
-        CalendarDayReportComponent],
+        CalendarManagerComponent],
     declarations: [
-        CalendarDayReportComponent,
+        CalendarManagerComponent, 
         CalendarDayComponent, 
         CalendarWeekRowComponent,
-        CalendarMonthComponent, 
         CalendarWeekDayNamesComponent,
+        CalendarMonthComponent,
+        CalendarHeaderComponent
     ],
     bootstrap: [
-        CalendarDayReportComponent
+        CalendarManagerComponent
     ]
 })
 export class CalendarsModule { }

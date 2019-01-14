@@ -1,0 +1,59 @@
+::ng-deep .day-irrelevant {
+  color: #aaa;
+}
+::ng-deep .day-current {
+  color: red;
+}
+::ng-deep .hide {
+  display: none !important;
+}
+::ng-deep .day-cell {
+  text-decoration: none;
+  color: #000;
+  border: 1px solid black;
+  height: 25px;
+  width: auto;
+  display: table-cell;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+::ng-deep .day-weekend {
+  display: none;
+}
+::ng-deep .day-cell:hover {
+  cursor: pointer;
+}
+::ng-deep .day-cell.day-disable:hover {
+  cursor: default;
+}
+::ng-deep .day-select {
+  background-color: aqua;
+}
+::ng-deep .week-row {
+  display: table-row;
+}
+::ng-deep .week-name-cell {
+  color: gray;
+}
+::ng-deep .month-title p {
+  margin: 0;
+}
+::ng-deep .month-body {
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+}
+::ng-deep .calendar-body {
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+}
+::ng-deep .noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

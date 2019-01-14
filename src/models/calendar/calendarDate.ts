@@ -1,24 +1,37 @@
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { ICalendarConfig } from 'src/modules/calendars/config/ICalendar.config';
+import { CalendarType } from './enums/calendarType';
 
 export class CalendarDate {
   date: moment.Moment;
   isSelected: boolean;
   isToday: boolean;
-  isCurentMonth: boolean;
+  isCurent: boolean;
   isDisabled: boolean;
   isHide: boolean;
   isWeekend: boolean;
 
-  constructor(date: moment.Moment = moment(), currentMoment: moment.Moment, config: ICalendarConfig, isSelected?: boolean ) {
+  constructor(date: moment.Moment = moment(), currentMoment: moment.Moment, config: ICalendarConfig, isSelected?: boolean) {
     this.date = date;
     this.isToday = moment().isSame(date, 'day');
-    this.isCurentMonth = moment(date).isSame(currentMoment, 'month');
+    this.isCurent = moment(date).isSame(currentMoment, config.calendar.calendarType);
+    if (config.calendar.calendarType == CalendarType.Year) {
+      this.isCurent = this.isCurent && moment(date).isSame(currentMoment, 'month');
+    }
+    this.isHide = config.calendar.isHideExtaDates && !this.isCurent;
     this.isSelected = isSelected;
-    this.isHide = config.calendar.isHideExtaDates && !this.isCurentMonth;
     this.isDisabled = this.isDayDisabled(config.calendar.isBlockFutureDays);
     this.isWeekend = this.date.weekday() > 4;
+
+  }
+
+  public getClasses(config: ICalendarConfig): string {
+    const result: string[] = [config.day.cellClass]
+    result.push(this.isSelected && !this.isHide ? config.day.selectClass : '');
+    result.push(this.isDisabled ? config.day.disableClass : '');
+    result.push(config.calendar.isHideWeekend && this.isWeekend ? config.calendar.hideClass : '');
+    return result.join(' ');
   }
 
   private isDayDisabled(isFutureDaysDisabled: boolean): boolean {

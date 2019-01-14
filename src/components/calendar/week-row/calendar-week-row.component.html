@@ -1,2 +1,2 @@
-<calendar-day *ngFor="let day of weekModel.dates" [ngClass]="getDayClasses(day)" [config]="config" [calendarDate]="day" (mousedown)="mouseDownHandler(day)" (mouseover)="mouseOverHandler(day)" (mouseup)="mouseUpHandler(day)">
+<calendar-day *ngFor="let day of weekModel.dates" [ngClass]="day.getClasses(config)" [config]="config" [calendarDate]="day" (mousedown)="mouseDownHandler(day)" (mouseover)="mouseOverHandler(day)" (mouseup)="mouseUpHandler(day)">
 </calendar-day>

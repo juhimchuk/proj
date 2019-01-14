@@ -40,12 +40,4 @@ export class CalendarWeekRowComponent {
             this.onSelectDay.emit(eventModel);
         }
     }
-
-    protected getDayClasses(day: CalendarDate): string {
-        const result: string[] = [this.config.day.cellClass]
-        result.push(day.isSelected && !day.isHide ? this.config.day.selectClass : '');
-        result.push(day.isDisabled ? this.config.day.disableClass : '');
-        result.push(this.config.calendar.isHideWeekend && day.isWeekend ? this.config.calendar.hideClass : '');
-        return result.join(' ');
-    }
 }
