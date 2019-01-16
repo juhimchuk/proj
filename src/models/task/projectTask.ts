@@ -1,13 +1,13 @@
 export class ProjectTask {
-    TaskId: number;
-    Title: string;
-    Billable: boolean;
-    IsOutOfScope: boolean;
+    taskId: number;
+    title: string;
+    billable: boolean;
+    isOutOfScope: boolean;
   
     constructor(taskId?: number, title?: string ,billable?: boolean, isOutOfScope?: boolean) {
-      this.TaskId = taskId;
-      this.Title = title;
-      this.Billable = billable;
-      this.IsOutOfScope = isOutOfScope;
+      this.taskId = taskId;
+      this.title = title;
+      this.billable = billable;
+      this.isOutOfScope = isOutOfScope;
     }
   }

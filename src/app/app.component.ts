@@ -16,7 +16,7 @@ export class AppComponent {
 
   calendarConfig = new DefaultCalendarConfig();
   calendarModel: CalendarModel;
-  private selectedDays: moment.Moment[];
+  selectedDays: moment.Moment[];
 
   constructor(){
     this.calendarModel = new CalendarModel(this.calendarConfig);

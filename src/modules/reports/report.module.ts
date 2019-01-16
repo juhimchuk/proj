@@ -30,6 +30,8 @@ import { AuthenticationService } from '../../services/auth/authentication.servic
     declarations: [
         SubmitReportComponent
     ],
+    exports: [
+        SubmitReportComponent],
     providers: [
         AuthGuard,
         ProjectService,
