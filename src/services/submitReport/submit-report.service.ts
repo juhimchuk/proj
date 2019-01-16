@@ -8,7 +8,7 @@ import * as moment from 'moment';
 @Injectable()
 export class SubmitReportService {
 
-    private readonly url = "http://localhost:63553/api/dayreport/savetaskduration";
+    private readonly url = "http://localhost:63553/api/dayreport/savetaskduration?selectedDate=2019-01-15";
 
 
     constructor(private http: HttpClient) { }
@@ -17,16 +17,18 @@ export class SubmitReportService {
 
     report.status = "Open";
     report.durationId = -1;
-    report.selectedDate= moment.now().toString();
-        console.log(report);
-    // return this.http.post<any>(this.url, model)
-    //     .pipe(map(user => {
-    //         if (user.access_token) {
-    //             localStorage.setItem('currentUser', user.access_token);
-    //         }
+    report.selectedDate= moment.utc();
+    console.log(report);
+    const body = {durationId: report.durationId,
+        taskId: report.taskId,
+        title: report.title,
+        description: report.description,
+        duration: 30,
+        status: 0,
+        submittedDate:"2019-01-15",
+        billable: report.billable,
+        overtime: null};
+    return this.http.post(this.url, report);
+        }
+}
 
-    //         return user;
-    //     }));
-    //     }
-}
-}
