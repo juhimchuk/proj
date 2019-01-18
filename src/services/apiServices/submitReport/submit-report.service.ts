@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { DayReportProjectTask } from '../../models/task/dayReportPtojectTask';
-import { SubmitReport } from '../../models/submitReport/submitReport';
-import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { SubmitReport } from 'src/models/submitReport/submitReport';
 
 @Injectable()
 export class SubmitReportService {

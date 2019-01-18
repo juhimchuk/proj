@@ -1,14 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, Input,SimpleChanges} from '@angular/core';
-
-import { TaskService } from '../../services/task/task.service';
 import { DayReportProjectTask } from '../../models/task/dayReportPtojectTask';
 import { SubmitReport } from '../../models/submitReport/submitReport';
 import * as moment from 'moment';
-import {Observable} from 'rxjs';
-import { ProjectService } from '../../services/project/project.service';
-import { SubmitReportService } from '../../services/submitReport/submit-report.service';
 import { ProjectItem } from '../../models/project/projectItem';
 import { FormGroup, FormControl } from '@angular/forms';
+import { TaskService } from 'src/services/apiServices/task/task.service';
+import { ProjectService } from 'src/services/apiServices/project/project.service';
+import { SubmitReportService } from 'src/services/apiServices/submitReport/submit-report.service';
 
 @Component({
     selector: 'submit-report',

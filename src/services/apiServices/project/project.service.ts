@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ProjectItem } from '../../models/project/projectItem';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { ProjectItem } from 'src/models/project/projectItem';
 
 @Injectable()
 export class ProjectService {

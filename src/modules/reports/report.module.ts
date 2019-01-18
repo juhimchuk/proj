@@ -4,17 +4,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule }        from '../../app/app-routing.module';
-import { ActivatedRoute, Router, RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { RouterModule, } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SubmitReportComponent } from 'src/components/submitReport/submit-report.component';
-import { ProjectService } from '../../services/project/project.service';
-import { SubmitReportService } from '../../services/submitReport/submit-report.service';
-import { TaskService } from '../../services/task/task.service';
 import { AuthGuard } from '../../guards/auth.guard';
 import { JwtInterceptor } from '../../helpers/jwt.interceptor';
 import { ErrorInterceptor } from '../../helpers/error.interceptor';
-import { AuthenticationService } from '../../services/auth/authentication.service';
+import { ProjectService } from 'src/services/apiServices/project/project.service';
+import { TaskService } from 'src/services/apiServices/task/task.service';
+import { AuthenticationService } from 'src/services/apiServices/auth/authentication.service';
+import { SubmitReportService } from 'src/services/apiServices/submitReport/submit-report.service';
 
 
 @NgModule({

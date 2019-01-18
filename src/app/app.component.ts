@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
 import * as moment from 'moment';
 import { DefaultCalendarConfig } from 'src/modules/calendars/config/defaultCalendar.config';
-import { CalendarMonth } from 'src/models/calendar/calendarMonth';
-import { SelectMode } from 'src/models/calendar/enums/selectMode';
 import { CalendarModel } from 'src/models/calendar/calendarModel';
 import { CalendarType } from 'src/models/calendar/enums/calendarType';
-import { EmployeeStatisticService } from 'src/services/employeeStatistic/employee-statistic.service';
-import { IHttpActionResult } from 'src/models/response/IHttpActionResult';
-import { GeneralMonthStatistics } from 'src/models/statistic/generalMonthStatistic';
+import { EmployeeStatisticService } from 'src/services/apiServices/employeeStatistic/employee-statistic.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +16,7 @@ export class AppComponent {
 
   calendarConfig = new DefaultCalendarConfig();
   calendarModel: CalendarModel;
-  selectedDays: moment.Moment[];
+  selectedDays: moment.Moment[] = [moment()];
 
   constructor(private statisticService: EmployeeStatisticService) {
     this.calendarModel = new CalendarModel(this.calendarConfig);
