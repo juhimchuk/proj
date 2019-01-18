@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ProjectItem } from '../../models/project/projectItem';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { ProjectItem } from 'src/models/project/projectItem';
 
 @Injectable()
 export class ProjectService {
@@ -19,8 +19,8 @@ export class ProjectService {
 
         return this.http.get<any>(this.url, {params:params}).pipe(map(user => {
             var projects:ProjectItem[] = [];
-            user.data.ProjectList.forEach(obj => {
-                var temp = new ProjectItem(obj.ProjectId,obj.Name);
+            user.data.projectList.forEach(obj => {
+                var temp = new ProjectItem(obj.projectId,obj.name);
                 projects.push(temp);
             });
             return projects;

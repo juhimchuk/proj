@@ -3,7 +3,7 @@
   <div>
     <label>
       Project:
-      <select  (change)="GetTasks($event.target.value)" >
+      <select  (change)="GetTasks($event.target.value)" [value]="startProjectId" >
         <option *ngFor="let s of some"
                 [value]="s.projectId"
                >
@@ -14,10 +14,10 @@
   
     <label>
       Task:
-      <select formControlName="taskId">
-        <option *ngFor="let s of tasks.ProjectTasks"
-                [value]="s.TaskId">
-          {{s.Title}}
+      <select formControlName="taskId" [value]="startTaskId" >
+        <option *ngFor="let s of tasks.projectTasks"
+                [value]="s.taskId">
+          {{s.title}}
         </option>
       </select>
     </label>
