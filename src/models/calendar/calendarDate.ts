@@ -12,7 +12,10 @@ export class CalendarDate {
   isHide: boolean;
   isWeekend: boolean;
 
-  constructor(date: moment.Moment = moment(), currentMoment: moment.Moment, config: ICalendarConfig, isSelected?: boolean) {
+  htmlTooltip: string;
+  tooltipString: string;
+
+  constructor(date: moment.Moment = moment(), currentMoment: moment.Moment, config: ICalendarConfig, isSelected?: boolean, tooltip?: string) {
     this.date = date;
     this.isToday = moment().isSame(date, 'day');
     this.isCurent = moment(date).isSame(currentMoment, config.calendar.calendarType);
@@ -23,13 +26,16 @@ export class CalendarDate {
     this.isSelected = isSelected;
     this.isDisabled = this.isDayDisabled(config.calendar.isBlockFutureDays);
     this.isWeekend = this.date.weekday() > 4;
-
+    
+    this.htmlTooltip = tooltip;
   }
 
   public getClasses(config: ICalendarConfig): string {
     const result: string[] = [config.day.cellClass]
     result.push(this.isSelected && !this.isHide ? config.day.selectClass : '');
     result.push(this.isDisabled ? config.day.disableClass : '');
+    result.push(this.isCurent ? '' : config.day.irrelevantClass);
+    result.push(this.isToday ? config.day.currentClass : '');
     result.push(config.calendar.isHideWeekend && this.isWeekend ? config.calendar.hideClass : '');
     return result.join(' ');
   }

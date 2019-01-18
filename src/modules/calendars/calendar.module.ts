@@ -10,6 +10,7 @@ import { CalendarWeekRowComponent } from 'src/components/calendar/week-row/calen
 import { CalendarWeekDayNamesComponent } from 'src/components/calendar/weekday-names/calendar-weekday-names.component';
 import { CalendarManagerComponent } from './calendar-manager/calendar-manager.component';
 import { CalendarHeaderComponent } from 'src/components/calendar/header/calendar-header.component';
+import { CalendarDayTooltipComponent } from 'src/components/calendar/tooltip/calendar-day-tooltip.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CalendarHeaderComponent } from 'src/components/calendar/header/calendar
         CalendarWeekRowComponent,
         CalendarWeekDayNamesComponent,
         CalendarMonthComponent,
-        CalendarHeaderComponent
+        CalendarHeaderComponent,
+        CalendarDayTooltipComponent
     ],
     bootstrap: [
         CalendarManagerComponent

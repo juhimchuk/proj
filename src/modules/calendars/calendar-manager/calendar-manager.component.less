@@ -1,10 +1,5 @@
 ::ng-deep{
-    .day-irrelevant{
-        color: #aaa;
-    }
-    .day-current{
-        color: red;
-    }
+    
     .hide{
         display: none !important;
     }
@@ -19,7 +14,12 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
     }
-    
+    .day-irrelevant{
+        color: #aaa;
+    }
+    .day-current{
+        color: red;
+    }
     .day-weekend{
         display: none;
     }
@@ -62,5 +62,44 @@
         -ms-user-select: none;
         user-select: none;
     }
-    
+      
+      /* Tooltip text */
+      .day-tooltip .day-tooltiptext {
+        display: none;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+      
+        /* Position the tooltip text */
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+      
+        /* Fade in tooltip */
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      
+      /* Tooltip arrow */
+      .day-tooltip .day-tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+      }
+      
+      /* Show the tooltip text when you mouse over the tooltip container */
+      .day-tooltip:hover .day-tooltiptext {
+        display: block;
+        opacity: 1;
+      }
 } 

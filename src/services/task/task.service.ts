@@ -14,12 +14,12 @@ export class TaskService {
     constructor(private http: HttpClient) { }
 
     GetProjectTask(projectId: number) {
-    // ToDo add param accountId
+        // ToDo add param accountId
         let params = new HttpParams()
-    .set("projectId",projectId.toString());
+            .set("projectId", projectId.toString());
 
-        return this.http.get<any>(this.url+projectId).pipe(map(task => {
-            var tasks:DayReportProjectTask = new DayReportProjectTask();
+        return this.http.get<any>(this.url + projectId).pipe(map(task => {
+            var tasks: DayReportProjectTask = new DayReportProjectTask();
             tasks = task.data;
             return tasks;
         }));

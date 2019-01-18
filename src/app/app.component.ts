@@ -5,11 +5,15 @@ import { CalendarMonth } from 'src/models/calendar/calendarMonth';
 import { SelectMode } from 'src/models/calendar/enums/selectMode';
 import { CalendarModel } from 'src/models/calendar/calendarModel';
 import { CalendarType } from 'src/models/calendar/enums/calendarType';
+import { EmployeeStatisticService } from 'src/services/employeeStatistic/employee-statistic.service';
+import { IHttpActionResult } from 'src/models/response/IHttpActionResult';
+import { GeneralMonthStatistics } from 'src/models/statistic/generalMonthStatistic';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  styleUrls: ['./app.component.less'],
+  providers: [EmployeeStatisticService]
 })
 export class AppComponent {
   title = 'TimeTrackerAngularRedux';
@@ -18,8 +22,16 @@ export class AppComponent {
   calendarModel: CalendarModel;
   selectedDays: moment.Moment[];
 
-  constructor(){
+  constructor(private statisticService: EmployeeStatisticService) {
     this.calendarModel = new CalendarModel(this.calendarConfig);
+
+    this.statisticService.getEmployeeStatisticByWeek(moment()).subscribe((model) => { 
+      console.log(model) 
+    })
+
+    this.statisticService.getEmployeeStatisticByMonth(moment().subtract(1, 'month')).subscribe((model) => { 
+      console.log(model) 
+    })
   }
 
   monthChangeHandler(monthMoment: moment.Moment) {
@@ -38,7 +50,7 @@ export class AppComponent {
   }
 
   private _calendarTypes = CalendarType;
-  test(type: CalendarType){
+  test(type: CalendarType) {
     this.calendarConfig.calendar.calendarType = type;
     this.calendarModel = new CalendarModel(this.calendarConfig);
   }

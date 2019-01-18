@@ -1,5 +1,2 @@
-<span [ngClass]="getDayClasses()">
-    <span *ngIf="!calendarDate.isHide">
-            {{calendarDate.date.date()}}
-    </span>
-</span>
+<span *ngIf="!calendarDate.isHide">{{calendarDate.date.date()}}</span>
+<ng-content></ng-content>

@@ -17,7 +17,6 @@ export class CalendarModel {
     data: CalendarYear | CalendarMonth | CalendarWeek;
     selectedDays: CalendarDate[];
 
-
     constructor(config: ICalendarConfig, momentSetup?: moment.Moment, selectedDays: CalendarDate[] = [], selectedDates: moment.Moment[] = []) {
         this.config = config;
         this.currentMoment = momentSetup || config.momentSettings;
@@ -90,7 +89,7 @@ export class CalendarModel {
                 var isDaySelected = this.selectedDays.length && this.selectedDays.some((sDay) => moment(sDay.date).isSame(day));
                 isDaySelected = !isDaySelected && this._selectedDates.length && this._selectedDates.some((sDay) => moment(sDay).isSame(day));
 
-                const calendarDay = new CalendarDate(day, momentSettings, this.config, isDaySelected);
+                const calendarDay = new CalendarDate(day, momentSettings, this.config, isDaySelected, "<div class='day-tooltiptext'><h1>test</h1></div>");
                 if (isDaySelected) {
                     const selectedDayIndex = this.selectedDays.findIndex((sDay) => moment(sDay.date).isSame(day));
                     if (selectedDayIndex < 0) {
