@@ -3,10 +3,11 @@
 
 <nav>
     <a routerLink="/login">Login</a>
-  </nav>
+</nav>
 
 <router-outlet></router-outlet>
 <calendar [model]="calendarModel" (onChangeCalendar)="monthChangeHandler($event)" (onSelectDays)="daysSelectHandler($event)" (onSelectDay)="daySelectHandler($event)">
+
 </calendar>
 
 <button (click)="test(_calendarTypes.Week)">Week</button>

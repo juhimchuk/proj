@@ -16,6 +16,7 @@ export class CalendarWeekRowComponent {
     @Input() readonly selectMode: boolean;
 
     @Output() onSelectDay: EventEmitter<EventEmitterModel<CalendarDate>> = new EventEmitter();
+    @Output() onHoverDay: EventEmitter<EventEmitterModel<CalendarDate>> = new EventEmitter();
 
     constructor() { }
 
@@ -28,6 +29,7 @@ export class CalendarWeekRowComponent {
     }
 
     mouseOverHandler(day: CalendarDate): void{
+        console.log("hello");
         if (!day.isDisabled && this.selectMode) {
             const eventModel = new EventEmitterModel({ type: SelectDayEvent.Select, data: day });
             this.onSelectDay.emit(eventModel);

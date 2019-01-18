@@ -129,12 +129,21 @@ export class CalendarManagerComponent {
     }
     const MathAct = daysDifference > 0 ? 1 : -1;
     const nearDayDate = moment(startDay.date).add(MathAct, 'day');
-    const focusMonth = model instanceof CalendarMonth
-      ? model as CalendarMonth
-      : this.getMonthToSelect(model as CalendarYear, nearDayDate);
-    const focusWeek = model instanceof CalendarWeek
-      ? model as CalendarWeek 
-      : this.getWeekToSelect(focusMonth, nearDayDate);
+
+    var focusMonth: CalendarMonth;
+    var focusWeek: CalendarWeek;
+
+    if (model instanceof CalendarWeek) {
+      focusWeek = model as CalendarWeek
+    } else {
+      if (model instanceof CalendarMonth) {
+        focusMonth = model as CalendarMonth;
+      } else {
+        focusMonth = this.getMonthToSelect(model as CalendarYear, nearDayDate);
+      }
+      focusWeek = this.getWeekToSelect(focusMonth, nearDayDate);
+    }
+
     const nearDay = focusWeek.dates.find((day) => day.date.isSame(nearDayDate));
     if (nearDay.isCurent) {
       resultArray.pushUniq(nearDay);

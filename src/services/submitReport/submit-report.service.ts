@@ -15,18 +15,18 @@ export class SubmitReportService {
 
     SaveTaskDuration(report: SubmitReport) {
 
-    report.status = "Open";
-    report.durationId = -1;
-    report.selectedDate= moment.now().toString();
+        report.status = "Open";
+        report.durationId = -1;
+        report.selectedDate = moment.now().toString();
         console.log(report);
-    // return this.http.post<any>(this.url, model)
-    //     .pipe(map(user => {
-    //         if (user.access_token) {
-    //             localStorage.setItem('currentUser', user.access_token);
-    //         }
+        // return this.http.post<any>(this.url, model)
+        //     .pipe(map(user => {
+        //         if (user.access_token) {
+        //             localStorage.setItem('currentUser', user.access_token);
+        //         }
 
-    //         return user;
-    //     }));
-    //     }
-}
+        //         return user;
+        //     }));
+        //     }
+    }
 }

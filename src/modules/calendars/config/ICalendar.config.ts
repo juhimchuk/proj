@@ -38,6 +38,7 @@ export interface ICalendarFrameworkConfig {
     hideClass: string;
     switchClass: string;
 
+    isTooltipAllowed: boolean
     isHideExtaDates: boolean;
     isHideWeekend: boolean;
     isBlockFutureDays: boolean;
