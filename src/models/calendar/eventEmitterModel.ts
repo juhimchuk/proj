@@ -1,11 +1,10 @@
-import { SelectDayEvent } from './enums/selectDayEvent';
+import { SelectDayEventType } from './enums/selectDayEventType';
 
 export class EventEmitterModel<TData> {
     data: TData;
-    type: SelectDayEvent; 
-  
+    type: SelectDayEventType;
 
-    public constructor(init?:Partial<EventEmitterModel<TData>>) {
+    public constructor(init?: Partial<EventEmitterModel<TData>>) {
         Object.assign(this, init);
     }
-  }
+}

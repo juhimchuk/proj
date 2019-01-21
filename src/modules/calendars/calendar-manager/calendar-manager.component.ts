@@ -5,12 +5,13 @@ import { CalendarMonth } from 'src/models/calendar/calendarMonth';
 import { SwitchTypeEvent } from 'src/models/calendar/enums/switchTypeEvent';
 import { CalendarDate } from 'src/models/calendar/calendarDate';
 import { EventEmitterModel } from 'src/models/calendar/eventEmitterModel';
-import { SelectDayEvent } from 'src/models/calendar/enums/selectDayEvent';
+import { SelectDayEventType } from 'src/models/calendar/enums/selectDayEventType';
 import { SelectMode } from 'src/models/calendar/enums/selectMode';
 import { CalendarType } from 'src/models/calendar/enums/calendarType';
 import { CalendarModel } from 'src/models/calendar/calendarModel';
 import { CalendarWeek } from 'src/models/calendar/calendarWeek';
 import { CalendarYear } from 'src/models/calendar/calendarYear';
+import { TooltipModel } from 'src/models/common/tooltipModel';
 
 @Component({
   selector: 'calendar',
@@ -27,10 +28,20 @@ export class CalendarManagerComponent {
   @Output() onSelectDay: EventEmitter<moment.Moment> = new EventEmitter();
   @Output() onChangeCalendar: EventEmitter<moment.Moment> = new EventEmitter();
 
-  private selectMode: boolean;
+  private _isSelectMode: boolean;
+  private tooltipModel: TooltipModel;
+  private _isTooltipMode: boolean;
 
-  clickCalendarChangeHandler(changeType: SwitchTypeEvent) {
-    if (this.model.config.calendar.selectMode != SelectMode.None && this.selectMode) {
+  hoverDayHandler(day: CalendarDate): void{
+    if(day){
+      this.tooltipModel = day.tooltipModel;
+    }else{
+      this.tooltipModel = null;
+    }
+  }
+
+  clickCalendarChangeHandler(changeType: SwitchTypeEvent): void {
+    if (this.model.config.calendar.selectMode != SelectMode.None && this._isSelectMode) {
       this.finishDragSelect();
     }
     switch (changeType) {
@@ -48,30 +59,28 @@ export class CalendarManagerComponent {
     this.onChangeCalendar.emit(this.model.currentMoment);
   }
 
-  selectDaysHandler(event: EventEmitterModel<CalendarDate>) {
+  selectDaysHandler(event: EventEmitterModel<CalendarDate>): void {
     switch (event.type) {
-      case SelectDayEvent.InitSelect: {
+      case SelectDayEventType.InitSelect: {
         this.initDragSelect(event.data);
         break;
       }
-      case SelectDayEvent.Select: {
+      case SelectDayEventType.Select: {
         this.dragSelect(event.data);
         break;
       }
-      case SelectDayEvent.FinishDragSelect: {
+      case SelectDayEventType.FinishDragSelect: {
         this.finishDragSelect(event.data);
         break;
       }
     }
   }
 
-  @HostListener('document:mouseup', ['$event']) private mouseUpHandler() {
-    if (this.selectMode) {
+  @HostListener('document:mouseup', ['$event']) private mouseUpHandler(): void {
+    if (this._isSelectMode) {
       this.finishDragSelect();
     }
   }
-
-
 
   //#region Select region.
   private initDragSelect(day: CalendarDate): void {
@@ -81,7 +90,7 @@ export class CalendarManagerComponent {
     }
     day.isSelected = true;
     this.model.selectedDays = [day];
-    this.selectMode = true;
+    this._isSelectMode = true;
   }
 
   private dragSelect = (day: CalendarDate): void => {
@@ -109,7 +118,7 @@ export class CalendarManagerComponent {
         break;
       }
     }
-    this.selectMode = false;
+    this._isSelectMode = false;
   }
 
   private getSelectedDaysBetween(selectList: CalendarDate[], selectedDay: CalendarDate): CalendarDate[] {

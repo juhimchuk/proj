@@ -9,8 +9,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SubmitReportComponent } from 'src/components/submitReport/submit-report.component';
 import { AuthGuard } from '../../guards/auth.guard';
-import { JwtInterceptor } from '../../helpers/jwt.interceptor';
-import { ErrorInterceptor } from '../../helpers/error.interceptor';
+import { JwtInterceptor } from '../../helpers/interceptors/jwt.interceptor';
+import { ErrorInterceptor } from '../../helpers/interceptors/error.interceptor';
 import { ProjectService } from 'src/services/apiServices/project/project.service';
 import { TaskService } from 'src/services/apiServices/task/task.service';
 import { AuthenticationService } from 'src/services/apiServices/auth/authentication.service';

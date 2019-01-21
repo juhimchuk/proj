@@ -23,7 +23,7 @@ export class DefaultCalendarConfig implements ICalendarConfig {
 }
 
 class CalendarDayConfig implements ICalendarDayConfig {
-    cellClass: string = "col-sm-1 day-cell day-tooltip";
+    cellClass: string = "col-sm-1 day-cell";
     disableClass: string = "day-disable";
     currentClass: string = "day-current";
     selectClass: string = "day-select";
@@ -49,7 +49,7 @@ class CalendarFrameworkConfig implements ICalendarFrameworkConfig {
     hideClass: string = "hide";
     switchClass: string = "col-sm-2 day-cell noselect";
 
-    calendarType: CalendarType = CalendarType.Week;
+    calendarType: CalendarType = CalendarType.Month;
 
     switchMode: SwitchMode = SwitchMode.Default;
     selectMode: SelectMode = SelectMode.Multi;

@@ -1,4 +1,4 @@
 <div [ngClass]="config.month.bodyClass">
     <ng-content></ng-content>
-    <calendar-week-row *ngFor="let week of monthModel.weeks" [ngClass]="week.getClasses(config)" [config]="config" [selectMode]="selectMode" [weekModel]="week" (onSelectDay)="selectDayHandler($event)"></calendar-week-row>
+    <calendar-week-row *ngFor="let week of monthModel.weeks" [ngClass]="week.getClasses(config)" [config]="config" [isSelectMode]="isSelectMode" [weekModel]="week" (onHoverDay)="onHoverDay.emit($event)" (onSelectDay)="selectDayHandler($event)"></calendar-week-row>
 </div>

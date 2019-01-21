@@ -1,4 +1,4 @@
-export enum SelectDayEvent {
+export enum SelectDayEventType {
     InitSelect = 0,
     Select,
     FinishDragSelect,

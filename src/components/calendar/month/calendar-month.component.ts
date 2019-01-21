@@ -4,9 +4,8 @@ import { CalendarMonth } from 'src/models/calendar/calendarMonth';
 import { SwitchTypeEvent } from 'src/models/calendar/enums/switchTypeEvent';
 import { CalendarDate } from 'src/models/calendar/calendarDate';
 import { EventEmitterModel } from 'src/models/calendar/eventEmitterModel';
-import { SelectDayEvent } from 'src/models/calendar/enums/selectDayEvent';
+import { SelectDayEventType } from 'src/models/calendar/enums/selectDayEventType';
 import { ICalendarConfig } from 'src/modules/calendars/config/ICalendar.config';
-import { CalendarWeek } from 'src/models/calendar/calendarWeek';
 
 @Component({
   selector: 'calendar-month',
@@ -18,9 +17,10 @@ export class CalendarMonthComponent {
 
   @Input() monthModel: CalendarMonth;
   @Input() config: ICalendarConfig;
-  @Input() selectMode: boolean;
+  @Input() isSelectMode: boolean;
 
   @Output() onChangeMonth: EventEmitter<SwitchTypeEvent> = new EventEmitter();
+  @Output() onHoverDay: EventEmitter<CalendarDate> = new EventEmitter();
   @Output() onSelectDay: EventEmitter<EventEmitterModel<CalendarDate>> = new EventEmitter();
 
   changeMonth(changeType: SwitchTypeEvent): void {
@@ -29,7 +29,7 @@ export class CalendarMonthComponent {
 
   selectDayHandler(event: EventEmitterModel<CalendarDate>): void {
     this.onSelectDay.emit(event);
-    if (!event.data.isCurent && event.type != SelectDayEvent.Select && event.type != SelectDayEvent.FinishDragSelect) {
+    if (!event.data.isCurent && event.type != SelectDayEventType.Select && event.type != SelectDayEventType.FinishDragSelect) {
       this.checkCurrentMonth(event.data);
     }
   }

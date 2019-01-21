@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterContentInit, ElementRef } from '@angular/core';
 import { CalendarDate } from 'src/models/calendar/calendarDate';
 import { ICalendarConfig } from 'src/modules/calendars/config/ICalendar.config';
 
@@ -6,9 +6,15 @@ import { ICalendarConfig } from 'src/modules/calendars/config/ICalendar.config';
   selector: 'calendar-day',
   templateUrl: './calendar-day.component.html'
 })
-export class CalendarDayComponent {
+export class CalendarDayComponent implements AfterContentInit {
   @Input() calendarDate: CalendarDate;
   @Input() config: ICalendarConfig;
 
-  constructor() { }
+  constructor(private element: ElementRef) { }
+
+  ngAfterContentInit(){
+    this.calendarDate.tooltipModel.leftPosition = this.element.nativeElement.offsetLeft;
+    this.calendarDate.tooltipModel.topPosition = this.element.nativeElement.offsetTop;
+    console.log(this.element);
+  }
 }

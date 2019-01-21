@@ -6,8 +6,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule }        from '../../app/app-routing.module';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from '../../guards/auth.guard';
-import { JwtInterceptor } from '../../helpers/jwt.interceptor';
-import { ErrorInterceptor } from '../../helpers/error.interceptor';
+import { JwtInterceptor } from '../../helpers/interceptors/jwt.interceptor';
+import { ErrorInterceptor } from '../../helpers/interceptors/error.interceptor';
 
 import { LoginComponent } from 'src/components/login/login.component';
 import { AuthenticationService } from 'src/services/apiServices/auth/authentication.service';

@@ -2,6 +2,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { ICalendarConfig } from 'src/modules/calendars/config/ICalendar.config';
 import { CalendarType } from './enums/calendarType';
+import { TooltipModel } from '../common/tooltipModel';
 
 export class CalendarDate {
   date: moment.Moment;
@@ -12,9 +13,8 @@ export class CalendarDate {
   isHide: boolean;
   isWeekend: boolean;
 
-  htmlTooltip: string;
-  tooltipString: string;
-
+  tooltipModel: TooltipModel;
+  
   constructor(date: moment.Moment = moment(), currentMoment: moment.Moment, config: ICalendarConfig, isSelected?: boolean, tooltip?: string) {
     this.date = date;
     this.isToday = moment().isSame(date, 'day');
@@ -27,7 +27,7 @@ export class CalendarDate {
     this.isDisabled = this.isDayDisabled(config.calendar.isBlockFutureDays);
     this.isWeekend = this.date.weekday() > 4;
     
-    this.htmlTooltip = tooltip;
+    this.tooltipModel = new TooltipModel({header: this.date.format(), data: {"data": this.date.date()}});
   }
 
   public getClasses(config: ICalendarConfig): string {

@@ -1,0 +1,6 @@
+<div>
+    <div class="tooltip-body">
+        <h5>{{model.header}}</h5>
+        <div *ngFor="let prop of model.data | keyvalue">{{prop.key}} {{prop.value}}</div>
+    </div>
+</div>
